@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./idea_cms_project
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./idea_cms_project:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=idea_cms.settings
+      - DATABASE_URL=postgres://user:password@db:5432/mydatabase
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
+
+
