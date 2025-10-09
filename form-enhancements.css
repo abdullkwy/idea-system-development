@@ -1,0 +1,143 @@
+
+/* Form Enhancements for Idea Website */
+/* تحسينات النماذج لموقع آيديا */
+
+/* General form styling */
+form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--dark-gray);
+    background-color: var(--white);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(43, 87, 65, 0.2);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Validation styles */
+.is-invalid {
+    border-color: var(--error) !important;
+}
+
+.is-valid {
+    border-color: var(--success) !important;
+}
+
+.invalid-feedback {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+.valid-feedback {
+    color: var(--success);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* File upload button styling */
+.file-upload-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.file-upload-wrapper input[type="file"] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload-button {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-button:hover {
+    background-color: var(--secondary-dark);
+}
+
+/* Multi-step form progress bar */
+.form-progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    height: 10px;
+}
+
+.form-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: width 0.4s ease-in-out;
+}
+
+.multi-step-form .form-step {
+    display: none;
+}
+
+.multi-step-form .form-step.active {
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+}
+
+

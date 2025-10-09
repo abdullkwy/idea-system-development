@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المهام - فريق آيديا</title>
+    <link rel="stylesheet" href="assets/css/team-dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+    <!-- شريط التنقل العلوي -->
+    <nav class="top-navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <img src="../website_project_v3/assets/images/logo.jpg" alt="آيديا" class="logo-img">
+                    <span class="logo-text">إدارة المهام</span>
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="البحث في المهام..." id="taskSearch">
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="nav-item quick-actions">
+                    <button class="quick-btn" onclick="showCreateTask()" title="إنشاء مهمة جديدة">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+                <div class="nav-item notifications" id="notificationsDropdown">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationCount">4</span>
+                    <div class="dropdown-menu notifications-menu">
+                        <div class="dropdown-header">
+                            <h4>الإشعارات</h4>
+                        </div>
+                        <div class="notifications-list" id="notificationsList">
+                            <!-- سيتم ملؤها بـ JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-item user-menu" id="userMenuDropdown">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <span class="user-name" id="memberName">عضو الفريق</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="dropdown-menu user-dropdown">
+                        <a href="#" class="dropdown-item" onclick="showProfile()">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSettings()">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل الخروج
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <ul class="sidebar-menu">
+                <li class="menu-item active">
+                    <a href="#" class="menu-link" onclick="showDashboard()">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>لوحة القيادة</span>
+                    </a>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">إدارة المهام</span>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showMyTasks()">
+                        <i class="fas fa-tasks"></i>
+                        <span>مهامي</span>
+                        <span class="badge" id="myTasksCount">8</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showAllTasks()">
+                        <i class="fas fa-list"></i>
+                        <span>جميع المهام</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showKanbanBoard()">
+                        <i class="fas fa-columns"></i>
+                        <span>لوحة كانبان</span>
+                    </a>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">المشاريع</span>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showProjects()">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>المشاريع</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showCalendar()">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>التقويم</span>
+                    </a>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">الفريق</span>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showTeamMembers()">
+                        <i class="fas fa-users"></i>
+                        <span>أعضاء الفريق</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="#" class="menu-link" onclick="showReports()">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>التقارير</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- لوحة القيادة -->
+        <div id="dashboardSection" class="content-section active">
+            <div class="content-header">
+                <div class="header-left">
+                    <h1 class="page-title">لوحة القيادة</h1>
+                    <p class="page-subtitle">نظرة عامة على مهامك وأداء الفريق</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" onclick="showCreateTask()">
+                        <i class="fas fa-plus"></i>
+                        إنشاء مهمة جديدة
+                    </button>
+                </div>
+            </div>
+
+            <!-- بطاقات الإحصائيات -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon tasks">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalTasks">24</div>
+                        <div class="stat-label">إجمالي المهام</div>
+                        <div class="stat-change">
+                            <span class="active-tasks">8 نشطة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon completed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="completedTasks">16</div>
+                        <div class="stat-label">مهمة مكتملة</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+4 هذا الأسبوع</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon projects">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="activeProjects">5</div>
+                        <div class="stat-label">مشروع نشط</div>
+                        <div class="stat-change">
+                            <span class="project-progress">3 في التقدم</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon productivity">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="productivity">87%</div>
+                        <div class="stat-label">معدل الإنتاجية</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+3% من الأسبوع الماضي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المهام السريعة -->
+            <div class="quick-tasks">
+                <div class="section-header">
+                    <h3>مهامي اليوم</h3>
+                    <a href="#" onclick="showMyTasks()" class="view-all">عرض الكل</a>
+                </div>
+                <div class="tasks-list" id="todayTasks">
+                    <!-- سيتم ملؤها بـ JavaScript -->
+                </div>
+            </div>
+
+            <!-- الرسوم البيانية -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>تقدم المهام الأسبوعي</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="weeklyProgressChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>توزيع المهام حسب الحالة</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="taskStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نشاط الفريق -->
+            <div class="team-activity">
+                <div class="section-header">
+                    <h3>نشاط الفريق الأخير</h3>
+                </div>
+                <div class="activity-feed" id="teamActivity">
+                    <!-- سيتم ملؤها بـ JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم لوحة كانبان -->
+        <div id="kanbanSection" class="content-section">
+            <div class="content-header">
+                <div class="header-left">
+                    <h1 class="page-title">لوحة كانبان</h1>
+                    <p class="page-subtitle">إدارة المهام بصرياً</p>
+                </div>
+                <div class="header-right">
+                    <div class="filter-controls">
+                        <select id="projectFilter">
+                            <option value="all">جميع المشاريع</option>
+                            <option value="project1">مشروع التسويق الرقمي</option>
+                            <option value="project2">تطوير الموقع</option>
+                            <option value="project3">تصميم الهوية</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kanban-board" id="kanbanBoard">
+                <div class="kanban-column" data-status="todo">
+                    <div class="column-header">
+                        <h3>قائمة المهام</h3>
+                        <span class="task-count">5</span>
+                    </div>
+                    <div class="column-content" id="todoColumn">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="kanban-column" data-status="in-progress">
+                    <div class="column-header">
+                        <h3>قيد التنفيذ</h3>
+                        <span class="task-count">3</span>
+                    </div>
+                    <div class="column-content" id="inProgressColumn">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="kanban-column" data-status="review">
+                    <div class="column-header">
+                        <h3>قيد المراجعة</h3>
+                        <span class="task-count">2</span>
+                    </div>
+                    <div class="column-content" id="reviewColumn">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="kanban-column" data-status="done">
+                    <div class="column-header">
+                        <h3>مكتملة</h3>
+                        <span class="task-count">8</span>
+                    </div>
+                    <div class="column-content" id="doneColumn">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- أقسام أخرى -->
+        <div id="tasksSection" class="content-section">
+            <div class="content-header">
+                <h1 class="page-title">جميع المهام</h1>
+            </div>
+            <div class="tasks-content">
+                <p>قريباً... قائمة شاملة بجميع المهام</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- نافذة إنشاء مهمة جديدة -->
+    <div class="modal" id="createTaskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إنشاء مهمة جديدة</h3>
+                <button class="modal-close" onclick="closeCreateTask()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createTaskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">عنوان المهمة</label>
+                        <input type="text" id="taskTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">وصف المهمة</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskProject">المشروع</label>
+                            <select id="taskProject">
+                                <option value="project1">مشروع التسويق الرقمي</option>
+                                <option value="project2">تطوير الموقع</option>
+                                <option value="project3">تصميم الهوية</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taskPriority">الأولوية</label>
+                            <select id="taskPriority">
+                                <option value="low">منخفضة</option>
+                                <option value="medium">متوسطة</option>
+                                <option value="high">عالية</option>
+                                <option value="urgent">عاجلة</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskAssignee">المسؤول</label>
+                            <select id="taskAssignee">
+                                <option value="TM001">أحمد محمد</option>
+                                <option value="TM002">فاطمة علي</option>
+                                <option value="TM003">محمد سالم</option>
+                                <option value="TM004">سارة أحمد</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taskDueDate">تاريخ الاستحقاق</label>
+                            <input type="date" id="taskDueDate">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeCreateTask()">إلغاء</button>
+                        <button type="submit" class="btn btn-primary">إنشاء المهمة</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/team-dashboard.js"></script>
+</body>
+</html>
+

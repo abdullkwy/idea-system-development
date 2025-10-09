@@ -1,0 +1,606 @@
+/* Responsive Design Improvements */
+/* تحسينات التصميم المتجاوب */
+
+/* تحسينات عامة للاستجابة */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 95%;
+        padding: 0 20px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* تحسينات للأجهزة اللوحية */
+@media (max-width: 992px) {
+    /* الهيدر والتنقل */
+    .top-bar {
+        padding: 8px 0;
+    }
+    
+    .contact-info {
+        display: none;
+    }
+    
+    .social-icons {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .navbar {
+        padding: 15px 0;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 100%);
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 20px 0;
+        transition: right 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu li {
+        margin: 0;
+        width: 100%;
+    }
+    
+    .nav-link {
+        padding: 15px 30px;
+        border-bottom: 1px solid var(--light-gray);
+        display: block;
+        width: 100%;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: var(--light-gray);
+        margin-top: 0;
+    }
+    
+    .dropdown-item {
+        padding: 12px 50px;
+        font-size: 0.9rem;
+    }
+    
+    .mobile-toggle {
+        display: block;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1001;
+    }
+    
+    /* المحتوى الرئيسي */
+    .hero {
+        padding: 80px 0 60px;
+        text-align: center;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    /* الخدمات */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 30px 25px;
+    }
+    
+    /* الإحصائيات */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .stat-item {
+        padding: 25px 20px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    /* الشهادات */
+    .testimonials-slider {
+        padding: 0 20px;
+    }
+    
+    .testimonial-card {
+        padding: 25px 20px;
+    }
+    
+    /* الفريق */
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    /* النماذج */
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    /* الشات بوت */
+    .chat-popup {
+        width: 90%;
+        height: 70vh;
+        bottom: 90px;
+        right: 5%;
+    }
+}
+
+/* تحسينات للهواتف الذكية */
+@media (max-width: 768px) {
+    /* الخطوط والمسافات */
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    /* الهيدر */
+    .logo img {
+        height: 45px;
+    }
+    
+    .dark-mode-toggle {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    /* الهيرو */
+    .hero {
+        padding: 60px 0 40px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.9rem;
+        line-height: 1.3;
+    }
+    
+    .hero-content .slogan {
+        font-size: 1rem;
+        margin: 15px 0;
+    }
+    
+    .hero-content p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    /* الأزرار */
+    .btn {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+    
+    .btn i {
+        font-size: 0.9rem;
+    }
+    
+    /* البطاقات */
+    .service-card,
+    .testimonial-card,
+    .team-card {
+        padding: 25px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .service-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    /* الإحصائيات */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+    }
+    
+    /* الفريق */
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .team-card {
+        max-width: 300px;
+        margin: 0 auto 20px;
+    }
+    
+    /* النماذج */
+    .contact-form {
+        padding: 25px 20px;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 12px 15px;
+        font-size: 1rem;
+    }
+    
+    .form-group label {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+    
+    /* الفوتر */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+    
+    .footer-section p,
+    .footer-section a {
+        font-size: 0.9rem;
+    }
+    
+    /* الشات بوت */
+    .chat-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        left: 20px;
+    }
+    
+    .chat-popup {
+        width: 95%;
+        height: 75vh;
+        bottom: 80px;
+        right: 2.5%;
+        border-radius: 15px;
+    }
+    
+    .chat-header {
+        padding: 15px 20px;
+    }
+    
+    .chat-title {
+        font-size: 1rem;
+    }
+    
+    .chat-body {
+        padding: 15px;
+    }
+    
+    .chat-bubble {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        max-width: 85%;
+    }
+    
+    .chat-input-container {
+        padding: 15px;
+    }
+    
+    .chat-input {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .chat-send {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
+
+/* تحسينات للشاشات الصغيرة جداً */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* الهيرو */
+    .hero {
+        padding: 50px 0 30px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.7rem;
+    }
+    
+    .hero-content .slogan {
+        font-size: 0.95rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+    
+    /* الأقسام */
+    .section {
+        padding: 40px 0;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    /* البطاقات */
+    .service-card,
+    .testimonial-card,
+    .team-card {
+        padding: 20px 15px;
+    }
+    
+    .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    /* النماذج */
+    .contact-form {
+        padding: 20px 15px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* الشات بوت */
+    .chat-popup {
+        width: 100%;
+        height: 100vh;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+    
+    .chat-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}
+
+/* تحسينات للشاشات الكبيرة */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .hero-content h1 {
+        font-size: 3.2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.3rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* تحسينات للطباعة */
+@media print {
+    .header,
+    .footer,
+    .chatbot-container,
+    .floating-buttons,
+    .cta-ribbon,
+    .scroll-progress {
+        display: none !important;
+    }
+    
+    .hero {
+        padding: 20px 0;
+    }
+    
+    .section {
+        padding: 30px 0;
+        page-break-inside: avoid;
+    }
+    
+    .service-card,
+    .testimonial-card,
+    .team-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+        background: #fff;
+    }
+    
+    .btn {
+        border: 1px solid #000;
+        background: transparent;
+        color: #000;
+    }
+}
+
+/* تحسينات لإمكانية الوصول */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-shape {
+        animation: none;
+    }
+    
+    .scroll-progress-bar {
+        transition: none;
+    }
+}
+
+/* تحسينات للوضع الليلي */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #e0e0e0;
+        --bg-color: #1a1a1a;
+        --card-bg: #2d2d2d;
+    }
+    
+    body:not(.dark-mode) {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+    
+    body:not(.dark-mode) .service-card,
+    body:not(.dark-mode) .testimonial-card,
+    body:not(.dark-mode) .team-card {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+    }
+}
+
+/* تحسينات للشاشات عالية الكثافة */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+    
+    .service-icon,
+    .team-avatar {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* تحسينات للشاشات اللمسية */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    .nav-link,
+    .service-card,
+    .team-card {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .chat-toggle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
