@@ -1,0 +1,271 @@
+/* Dark Mode Styles for Idea Website */
+/* أنماط الوضع الليلي لموقع آيديا */
+
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+body.dark-mode .header,
+body.dark-mode .navbar,
+body.dark-mode .top-bar {
+    background-color: #222222;
+    color: #f0f0f0;
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .dropdown-item {
+    color: #f0f0f0;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #2a2a2a;
+    border-color: #333333;
+}
+
+body.dark-mode .section {
+    background-color: #222222;
+}
+
+body.dark-mode .section-title h2,
+body.dark-mode .section-title p {
+    color: #f0f0f0;
+}
+
+body.dark-mode .service-card,
+body.dark-mode .stat-item {
+    background-color: #2a2a2a;
+    border-color: #333333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .service-title,
+body.dark-mode .service-description,
+body.dark-mode .stat-label,
+body.dark-mode .stat-description {
+    color: #f0f0f0;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #556B2F;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-outline {
+    border-color: #556B2F;
+    color: #556B2F;
+}
+
+body.dark-mode .btn-outline:hover {
+    background-color: #556B2F;
+    color: #ffffff;
+}
+
+body.dark-mode .cta-ribbon {
+    background-color: #333333;
+    color: #f0f0f0;
+}
+
+body.dark-mode .footer {
+    background-color: #222222;
+    color: #f0f0f0;
+}
+
+body.dark-mode .footer a {
+    color: #f0f0f0;
+}
+
+/* Glass Morphism in Dark Mode */
+body.dark-mode .glass-card {
+    background: rgba(42, 42, 42, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 51, 51, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+body.dark-mode .glass-stat-card {
+    background: rgba(42, 42, 42, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 51, 51, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Enhanced Gradients in Dark Mode */
+body.dark-mode .gradient-text-primary {
+    background: linear-gradient(90deg, #8B7355, #D4C4A8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.dark-mode .stats-slogan .slogan-text {
+    background: linear-gradient(90deg, #8B7355, #D4C4A8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Dark mode toggle button styles */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background-color: #6B8E23;
+    transform: scale(1.05);
+}
+
+.dark-mode-toggle .fa-sun,
+.dark-mode-toggle .fa-moon {
+    transition: opacity 0.3s ease;
+}
+
+.dark-mode-toggle.dark .fa-sun {
+    opacity: 0;
+    position: absolute;
+}
+
+.dark-mode-toggle.dark .fa-moon {
+    opacity: 1;
+}
+
+.dark-mode-toggle .fa-moon {
+    opacity: 0;
+}
+
+
+
+
+
+
+/* CSS Variables for Dark Mode */
+:root {
+    --dark-mode-bg-primary: #1a1a1a;
+    --dark-mode-bg-secondary: #2d2d2d;
+    --dark-mode-text-primary: #ffffff;
+    --dark-mode-text-secondary: #cccccc;
+    --dark-mode-accent-olive: #9d8f6b;
+    --dark-mode-accent-beige: #c4b896;
+}
+
+body.dark-mode {
+    background-color: var(--dark-mode-bg-primary);
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .header,
+body.dark-mode .navbar,
+body.dark-mode .top-bar {
+    background-color: var(--dark-mode-bg-secondary);
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .dropdown-item {
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--dark-mode-bg-secondary);
+    border-color: #333333;
+}
+
+body.dark-mode .section {
+    background-color: var(--dark-mode-bg-primary);
+}
+
+body.dark-mode .section-title h2,
+body.dark-mode .section-title p {
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .service-card,
+body.dark-mode .stat-item {
+    background-color: var(--dark-mode-bg-secondary);
+    border-color: #333333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .service-title,
+body.dark-mode .service-description,
+body.dark-mode .stat-label,
+body.dark-mode .stat-description {
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .btn-primary {
+    background-color: var(--dark-mode-accent-olive);
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .btn-outline {
+    border-color: var(--dark-mode-accent-olive);
+    color: var(--dark-mode-accent-olive);
+}
+
+body.dark-mode .btn-outline:hover {
+    background-color: var(--dark-mode-accent-olive);
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .cta-ribbon {
+    background-color: var(--dark-mode-bg-secondary);
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .footer {
+    background-color: var(--dark-mode-bg-secondary);
+    color: var(--dark-mode-text-primary);
+}
+
+body.dark-mode .footer a {
+    color: var(--dark-mode-text-primary);
+}
+
+/* Glass Morphism in Dark Mode */
+body.dark-mode .glass-card,
+body.dark-mode .glass-stat-card {
+    background: rgba(42, 42, 42, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 51, 51, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Enhanced Gradients in Dark Mode */
+body.dark-mode .gradient-text-primary,
+body.dark-mode .stats-slogan .slogan-text {
+    background: linear-gradient(90deg, var(--dark-mode-accent-olive), var(--dark-mode-accent-beige));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Smooth transitions for dark mode */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.header, .navbar, .top-bar, .dropdown-menu, .section, .service-card, .stat-item, .btn-primary, .btn-outline, .cta-ribbon, .footer, .glass-card, .glass-stat-card {
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+

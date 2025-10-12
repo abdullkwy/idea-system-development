@@ -1,0 +1,156 @@
+/* البيانات المنظمة للموقع (Schema.org) */
+
+/* بيانات منظمة للصفحة الرئيسية */
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "آيديا للاستشارات والحلول التسويقية",
+  "url": "https://jhmhkvms.manus.space/",
+  "logo": "https://jhmhkvms.manus.space/assets/images/logo.jpg",
+  "description": "شركة متخصصة في تقديم الاستشارات والحلول التسويقية المتكاملة للشركات والمؤسسات",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "حدة - امام الديرة مول - مبنى القطرية - الدور الخامس",
+    "addressLocality": "صنعاء",
+    "addressCountry": "اليمن"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "773171477",
+    "contactType": "customer service",
+    "email": "info@ideateeam.com"
+  },
+  "sameAs": [
+    "https://www.facebook.com/ideateam",
+    "https://twitter.com/ideateam",
+    "https://www.instagram.com/ideateam",
+    "https://www.linkedin.com/company/ideateam"
+  ]
+}
+</script>
+
+/* بيانات منظمة للخدمات */
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "الاستشارات التسويقية",
+  "provider": {
+    "@type": "Organization",
+    "name": "آيديا للاستشارات والحلول التسويقية",
+    "url": "https://jhmhkvms.manus.space/"
+  },
+  "description": "خدمات استشارية متخصصة تساعد الشركات والمؤسسات على تطوير استراتيجياتها التسويقية وتحقيق أهدافها بكفاءة وفعالية",
+  "offers": {
+    "@type": "Offer",
+    "price": "500",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+/* بيانات منظمة للمدونة */
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "url": "https://jhmhkvms.manus.space/blog.html",
+  "name": "مدونة التسويق - آيديا للاستشارات والحلول التسويقية",
+  "description": "مدونة متخصصة في مجال التسويق والاستشارات التسويقية تقدم أحدث المقالات والنصائح والاستراتيجيات",
+  "publisher": {
+    "@type": "Organization",
+    "name": "آيديا للاستشارات والحلول التسويقية",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jhmhkvms.manus.space/assets/images/logo.jpg"
+    }
+  }
+}
+</script>
+
+/* بيانات منظمة لمقالات المدونة */
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "أحدث اتجاهات التسويق الرقمي في 2025",
+  "image": "https://jhmhkvms.manus.space/assets/images/blog/digital-marketing-trends.jpg",
+  "datePublished": "2025-04-20",
+  "dateModified": "2025-04-24",
+  "author": {
+    "@type": "Person",
+    "name": "أحمد الشامي"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "آيديا للاستشارات والحلول التسويقية",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jhmhkvms.manus.space/assets/images/logo.jpg"
+    }
+  },
+  "description": "استكشف أحدث اتجاهات التسويق الرقمي في عام 2025 وكيفية الاستفادة منها في استراتيجيتك التسويقية",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jhmhkvms.manus.space/blog-post-1.html"
+  }
+}
+</script>
+
+/* بيانات منظمة للأسئلة الشائعة */
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ما هي الاستشارة التسويقية وكيف يمكن أن تساعد عملي؟",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "الاستشارة التسويقية هي خدمة احترافية تقدم المشورة والتوجيه في مجال التسويق لمساعدة الشركات والمؤسسات على تطوير استراتيجياتها التسويقية وتحسين أدائها. يمكن للاستشارة التسويقية أن تساعد عملك من خلال تقييم وضعك التسويقي الحالي وتحديد نقاط القوة والضعف، تطوير استراتيجيات تسويقية فعالة، تحديد الفرص التسويقية، تحسين كفاءة وفعالية جهودك التسويقية، زيادة العائد على الاستثمار التسويقي، ومواكبة أحدث الاتجاهات والتطورات في مجال التسويق."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "كيف تتم عملية الاستشارة التسويقية؟",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "تتم عملية الاستشارة التسويقية عادة وفق الخطوات التالية: الاجتماع الأولي لفهم عملك واحتياجاتك وتحدياتك وأهدافك، جمع المعلومات والبيانات اللازمة عن عملك والسوق والمنافسين والجمهور المستهدف، تحليل المعلومات والبيانات لتحديد نقاط القوة والضعف والفرص والتحديات، تطوير استراتيجية تسويقية مخصصة تتناسب مع احتياجاتك وأهدافك، تقديم توصيات محددة وخطة عمل واضحة للتنفيذ، والمتابعة والتقييم لتنفيذ الاستراتيجية وتقييم النتائج وتقديم التعديلات اللازمة."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ما هي تكلفة الاستشارة التسويقية؟",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "تختلف تكلفة الاستشارة التسويقية حسب نوع الاستشارة ونطاقها ومدتها. نقدم مجموعة متنوعة من الباقات الاستشارية لتناسب مختلف الميزانيات والاحتياجات: استشارة أولية مجانية لمدة 30 دقيقة لجميع العملاء الجدد، استشارة تسويقية شاملة تبدأ من 500 دولار للجلسة الواحدة وتشمل تحليلًا شاملًا وتوصيات مخصصة وخطة عمل، وباقات استشارية شهرية تبدأ من 1000 دولار شهريًا وتشمل دعمًا تسويقيًا مستمرًا واجتماعات دورية وتقارير أداء."
+      }
+    }
+  ]
+}
+</script>
+
+/* بيانات منظمة لصفحة الاتصال */
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "url": "https://jhmhkvms.manus.space/contact.html",
+  "name": "تواصل معنا - آيديا للاستشارات والحلول التسويقية",
+  "description": "تواصل مع فريق آيديا للاستشارات والحلول التسويقية للاستفسارات وطلب الخدمات",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "آيديا للاستشارات والحلول التسويقية",
+    "telephone": "773171477",
+    "email": "info@ideateeam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "حدة - امام الديرة مول - مبنى القطرية - الدور الخامس",
+      "addressLocality": "صنعاء",
+      "addressCountry": "اليمن"
+    }
+  }
+}
+</script>

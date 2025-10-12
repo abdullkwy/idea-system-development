@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب حلول آيديا الشاملة - آيديا للاستشارات والحلول التسويقية</title>
+    <meta name="description" content="اطلب حلول آيديا الشاملة المتكاملة من فريق آيديا للاستشارات والحلول التسويقية">
+    
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ملف CSS الرئيسي -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        .form-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2b5741 0%, #f5f5dc 100%);
+            padding: 2rem 0;
+        }
+        
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #2b5741, #3a6b52);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .form-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .form-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+        }
+        
+        .form-body {
+            padding: 2rem;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        
+        .form-section h3 {
+            margin: 0 0 1rem;
+            color: #2b5741;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #2b5741;
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2b5741;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            color: #000;
+            background-color: #fff;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #2b5741;
+            box-shadow: 0 0 0 3px rgba(43, 87, 65, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .checkbox-label:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            margin-left: 0.5rem;
+            transform: scale(1.2);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #2b5741, #3a6b52);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(43, 87, 65, 0.3);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #2b5741;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #3a6b52;
+        }
+        
+        .back-link i {
+            margin-left: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                margin: 1rem;
+                border-radius: 10px;
+            }
+            
+            .form-header {
+                padding: 1.5rem;
+            }
+            
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-body {
+                padding: 1.5rem;
+            }
+            
+            .form-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="comprehensive-form">
+    <div class="form-page">
+        <div class="container">
+            <a href="request-comprehensive.html" class="back-link">
+                <i class="fas fa-arrow-right"></i>
+                العودة إلى صفحة الحلول
+            </a>
+            
+            <div class="form-container">
+                <div class="form-header">
+                    <h1><i class="fas fa-cubes"></i> طلب حلول آيديا الشاملة</h1>
+                    <p>احصل على باقة متكاملة من الحلول التسويقية والإبداعية والتقنية</p>
+                </div>
+                
+                <div class="form-body">
+                    <form action="#" method="post" class="service-form">
+                        <!-- معلومات العميل -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> معلومات العميل</h3>
+                            
+                            <div class="form-group">
+                                <label for="comprehensive-name">الاسم الكامل <span class="required">*</span></label>
+                                <input type="text" id="comprehensive-name" name="comprehensive-name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="comprehensive-email">البريد الإلكتروني <span class="required">*</span></label>
+                                    <input type="email" id="comprehensive-email" name="comprehensive-email" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="comprehensive-phone">رقم الهاتف <span class="required">*</span></label>
+                                    <input type="tel" id="comprehensive-phone" name="comprehensive-phone" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="comprehensive-company">اسم الشركة/المؤسسة <span class="required">*</span></label>
+                                    <input type="text" id="comprehensive-company" name="comprehensive-company" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="comprehensive-industry">نوع النشاط التجاري</label>
+                                    <input type="text" id="comprehensive-industry" name="comprehensive-industry" class="form-control" placeholder="مثال: تجارة إلكترونية، خدمات طبية، تعليم...">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- الحلول المطلوبة -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-tasks"></i> الحلول المطلوبة</h3>
+                            
+                            <div class="form-group">
+                                <label>الحلول التسويقية</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-marketing[]" value="digital-marketing">
+                                        التسويق الإلكتروني
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-marketing[]" value="social-media-management">
+                                        إدارة وسائل التواصل الاجتماعي
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-marketing[]" value="content-marketing">
+                                        تسويق المحتوى
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-marketing[]" value="seo">
+                                        تحسين محركات البحث (SEO)
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-marketing[]" value="advertising-campaigns">
+                                        الحملات الإعلانية
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-marketing[]" value="email-marketing">
+                                        التسويق عبر البريد الإلكتروني
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>الحلول الإبداعية</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-creative[]" value="logo-design">
+                                        تصميم الشعارات
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-creative[]" value="brand-identity">
+                                        تصميم الهوية البصرية
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-creative[]" value="graphic-design">
+                                        التصميم الجرافيكي
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-creative[]" value="video-production">
+                                        إنتاج الفيديو
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-creative[]" value="photography">
+                                        التصوير الفوتوغرافي
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-creative[]" value="print-design">
+                                        تصميم المطبوعات
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>الحلول التقنية</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-technical[]" value="website-development">
+                                        تطوير المواقع الإلكترونية
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-technical[]" value="ecommerce-development">
+                                        تطوير المتاجر الإلكترونية
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-technical[]" value="mobile-app-development">
+                                        تطوير تطبيقات الجوال
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-technical[]" value="cms-development">
+                                        أنظمة إدارة المحتوى
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-technical[]" value="hosting-maintenance">
+                                        الاستضافة والصيانة
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-technical[]" value="api-development">
+                                        تطوير واجهات برمجة التطبيقات
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>الاستشارات</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-consultancy[]" value="marketing-strategy">
+                                        استراتيجية تسويقية
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-consultancy[]" value="brand-strategy">
+                                        استراتيجية العلامة التجارية
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-consultancy[]" value="market-research">
+                                        دراسة السوق
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-consultancy[]" value="competitor-analysis">
+                                        تحليل المنافسين
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تفاصيل المشروع -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-clipboard-list"></i> تفاصيل المشروع</h3>
+                            
+                            <div class="form-group">
+                                <label for="comprehensive-details">وصف المشروع والأهداف <span class="required">*</span></label>
+                                <textarea id="comprehensive-details" name="comprehensive-details" class="form-control" rows="5" required placeholder="اشرح لنا بالتفصيل مشروعك والأهداف التي تريد تحقيقها..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comprehensive-target-audience">الجمهور المستهدف <span class="required">*</span></label>
+                                <textarea id="comprehensive-target-audience" name="comprehensive-target-audience" class="form-control" rows="3" required placeholder="صف لنا الجمهور المستهدف لمشروعك..."></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="comprehensive-budget">الميزانية الإجمالية <span class="required">*</span></label>
+                                    <select id="comprehensive-budget" name="comprehensive-budget" class="form-control" required>
+                                        <option value="">-- اختر الميزانية الإجمالية --</option>
+                                        <option value="5000-10000">5000 - 10000 دولار</option>
+                                        <option value="10000-20000">10000 - 20000 دولار</option>
+                                        <option value="20000-50000">20000 - 50000 دولار</option>
+                                        <option value="50000-100000">50000 - 100000 دولار</option>
+                                        <option value="more-than-100000">أكثر من 100000 دولار</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="comprehensive-timeline">الإطار الزمني للمشروع <span class="required">*</span></label>
+                                    <select id="comprehensive-timeline" name="comprehensive-timeline" class="form-control" required>
+                                        <option value="">-- اختر الإطار الزمني --</option>
+                                        <option value="1-3-months">1-3 أشهر</option>
+                                        <option value="3-6-months">3-6 أشهر</option>
+                                        <option value="6-12-months">6-12 شهر</option>
+                                        <option value="more-than-year">أكثر من سنة</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comprehensive-priorities">الأولويات في التنفيذ</label>
+                                <textarea id="comprehensive-priorities" name="comprehensive-priorities" class="form-control" rows="3" placeholder="ما هي الحلول التي تريد البدء بها أولاً؟"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- معلومات إضافية -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-info-circle"></i> معلومات إضافية</h3>
+                            
+                            <div class="form-group">
+                                <label for="comprehensive-current-situation">الوضع الحالي لأعمالك</label>
+                                <textarea id="comprehensive-current-situation" name="comprehensive-current-situation" class="form-control" rows="3" placeholder="اشرح لنا الوضع الحالي لأعمالك والتحديات التي تواجهها..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comprehensive-competitors">المنافسون الرئيسيون</label>
+                                <input type="text" id="comprehensive-competitors" name="comprehensive-competitors" class="form-control" placeholder="اذكر أسماء أو مواقع منافسيك الرئيسيين...">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>كيف سمعت عنا؟</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-source[]" value="social-media">
+                                        وسائل التواصل الاجتماعي
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-source[]" value="search-engine">
+                                        محركات البحث
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-source[]" value="friend">
+                                        صديق/زميل
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-source[]" value="advertisement">
+                                        إعلان
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="comprehensive-source[]" value="other">
+                                        أخرى
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i>
+                                إرسال طلب حلول آيديا الشاملة
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // تحسين تجربة المستخدم
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثيرات التفاعل للنموذج
+            const form = document.querySelector('.service-form');
+            const inputs = form.querySelectorAll('.form-control');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+            
+            // معالجة إرسال النموذج
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // التحقق من صحة البيانات
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#e74c3c';
+                    } else {
+                        field.style.borderColor = '#e0e0e0';
+                    }
+                });
+                
+                // التحقق من اختيار حل واحد على الأقل
+                const allCheckboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+                if (allCheckboxes.length === 0) {
+                    isValid = false;
+                    alert('يرجى اختيار حل واحد على الأقل من الحلول المتاحة.');
+                }
+                
+                if (isValid) {
+                    // إظهار رسالة نجاح
+                    alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً لمناقشة تفاصيل مشروعك.');
+                    form.reset();
+                } else {
+                    alert('يرجى ملء جميع الحقول المطلوبة.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# ملفات مهمة لمحركات البحث
+Sitemap: https://terbibxp.manus.space/sitemap.xml
+
+# منع الوصول للملفات الحساسة
+Disallow: /assets/
+Disallow: /*.zip
+Disallow: /*.txt
+Disallow: /todo.md
+
+# السماح بالوصول للصور
+Allow: /assets/images/
+
+# تحسين الزحف
+Crawl-delay: 1
+

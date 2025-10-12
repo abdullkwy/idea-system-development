@@ -1,0 +1,69 @@
+{
+  "name": "لوحة تحكم فريق آيديا",
+  "short_name": "فريق آيديا",
+  "description": "لوحة تحكم الفريق لإدارة المهام والمشاريع",
+  "start_url": "/team_management/",
+  "display": "standalone",
+  "background_color": "#8B7355",
+  "theme_color": "#8B7355",
+  "orientation": "portrait-primary",
+  "scope": "/team_management/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["business", "productivity", "collaboration"],
+  "icons": [
+    {
+      "src": "../assets/images/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../assets/images/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "المهام",
+      "short_name": "المهام",
+      "description": "إدارة المهام اليومية",
+      "url": "/team_management/dashboard.html#tasks",
+      "icons": [
+        {
+          "src": "../assets/images/logo.jpg",
+          "sizes": "96x96",
+          "type": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "name": "التقويم",
+      "short_name": "التقويم",
+      "description": "عرض التقويم والمواعيد",
+      "url": "/team_management/dashboard.html#calendar",
+      "icons": [
+        {
+          "src": "../assets/images/logo.jpg",
+          "sizes": "96x96",
+          "type": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "name": "الفريق",
+      "short_name": "الفريق",
+      "description": "إدارة أعضاء الفريق",
+      "url": "/team_management/dashboard.html#team",
+      "icons": [
+        {
+          "src": "../assets/images/logo.jpg",
+          "sizes": "96x96",
+          "type": "image/jpeg"
+        }
+      ]
+    }
+  ]
+}

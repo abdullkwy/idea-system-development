@@ -1,0 +1,67 @@
+/* Enhanced Gradients for Idea Website */
+/* تدرجات لونية محسنة لموقع آيديا */
+
+:root {
+    --primary-color: #556B2F; /* الزيتي */
+    --secondary-color: #F5F5DC; /* البيج */
+    --accent-color: #FFD700; /* لون تمييز اختياري */
+}
+
+/* General gradient background for sections or elements */
+.gradient-background {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    /* Fallback for older browsers */
+    background: -webkit-linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: -moz-linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: -o-linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+/* Text with gradient fill */
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback for browsers that don't support text-fill-color */
+}
+
+/* Button with gradient background */
+.btn-gradient {
+    background: linear-gradient(45deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(45deg, var(--accent-color) 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Card or element with subtle gradient border */
+.gradient-border {
+    border-image: linear-gradient(45deg, var(--primary-color), var(--accent-color)) 1;
+    border-width: 2px;
+    border-style: solid;
+}
+
+/* Example of a more complex gradient for a hero section overlay */
+.hero-overlay-gradient {
+    background: linear-gradient(
+        to bottom,
+        rgba(85, 107, 47, 0.8) 0%, /* Primary color with opacity */
+        rgba(245, 245, 220, 0.6) 100% /* Secondary color with opacity */
+    );
+}
+
+/* Specific gradient for the stats section slogan */
+.stats-slogan .slogan-text {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+

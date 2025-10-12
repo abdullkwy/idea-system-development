@@ -1,0 +1,56 @@
+{
+  "name": "بوابة عملاء آيديا",
+  "short_name": "عملاء آيديا",
+  "description": "بوابة العملاء لمتابعة المشاريع والتقارير",
+  "start_url": "/client_portal/",
+  "display": "standalone",
+  "background_color": "#8B7355",
+  "theme_color": "#8B7355",
+  "orientation": "portrait-primary",
+  "scope": "/client_portal/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "../assets/images/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../assets/images/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "المشاريع",
+      "short_name": "المشاريع",
+      "description": "عرض المشاريع الجارية",
+      "url": "/client_portal/dashboard.html#projects",
+      "icons": [
+        {
+          "src": "../assets/images/logo.jpg",
+          "sizes": "96x96",
+          "type": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "name": "التقارير",
+      "short_name": "التقارير",
+      "description": "عرض التقارير والإحصائيات",
+      "url": "/client_portal/dashboard.html#reports",
+      "icons": [
+        {
+          "src": "../assets/images/logo.jpg",
+          "sizes": "96x96",
+          "type": "image/jpeg"
+        }
+      ]
+    }
+  ]
+}

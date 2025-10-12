@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب الاستشارات التسويقية - آيديا للاستشارات والحلول التسويقية</title>
+    <meta name="description" content="اطلب استشارة تسويقية متخصصة من فريق آيديا للاستشارات والحلول التسويقية">
+    
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ملف CSS الرئيسي -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        .form-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2b5741 0%, #f5f5dc 100%);
+            padding: 2rem 0;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #2b5741, #3a6b52);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .form-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .form-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+        }
+        
+        .form-body {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2b5741;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            color: #000;
+            background-color: #fff;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #2b5741;
+            box-shadow: 0 0 0 3px rgba(43, 87, 65, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .checkbox-label:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            margin-left: 0.5rem;
+            transform: scale(1.2);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #2b5741, #3a6b52);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(43, 87, 65, 0.3);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #2b5741;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #3a6b52;
+        }
+        
+        .back-link i {
+            margin-left: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                margin: 1rem;
+                border-radius: 10px;
+            }
+            
+            .form-header {
+                padding: 1.5rem;
+            }
+            
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-page">
+        <div class="container">
+            <a href="request-comprehensive.html" class="back-link">
+                <i class="fas fa-arrow-right"></i>
+                العودة إلى صفحة الحلول
+            </a>
+            
+            <div class="form-container">
+                <div class="form-header">
+                    <h1><i class="fas fa-chart-line"></i> طلب الاستشارات التسويقية</h1>
+                    <p>احصل على استشارة تسويقية متخصصة من فريق الخبراء لدينا</p>
+                </div>
+                
+                <div class="form-body">
+                    <form action="#" method="post" class="service-form">
+                        <div class="form-group">
+                            <label for="consultancy-name">الاسم الكامل <span class="required">*</span></label>
+                            <input type="text" id="consultancy-name" name="consultancy-name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="consultancy-email">البريد الإلكتروني <span class="required">*</span></label>
+                                <input type="email" id="consultancy-email" name="consultancy-email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="consultancy-phone">رقم الهاتف <span class="required">*</span></label>
+                                <input type="tel" id="consultancy-phone" name="consultancy-phone" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="consultancy-company">اسم الشركة/المؤسسة</label>
+                            <input type="text" id="consultancy-company" name="consultancy-company" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="consultancy-type">نوع الاستشارة <span class="required">*</span></label>
+                            <select id="consultancy-type" name="consultancy-type" class="form-control" required>
+                                <option value="">-- اختر نوع الاستشارة --</option>
+                                <option value="marketing-strategy">استراتيجية تسويقية</option>
+                                <option value="brand-strategy">استراتيجية العلامة التجارية</option>
+                                <option value="digital-marketing">التسويق الإلكتروني</option>
+                                <option value="social-media">وسائل التواصل الاجتماعي</option>
+                                <option value="content-marketing">تسويق المحتوى</option>
+                                <option value="market-research">دراسة السوق</option>
+                                <option value="competitor-analysis">تحليل المنافسين</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="consultancy-details">تفاصيل الاستشارة <span class="required">*</span></label>
+                            <textarea id="consultancy-details" name="consultancy-details" class="form-control" rows="5" required placeholder="اشرح لنا بالتفصيل ما تحتاجه من استشارة تسويقية..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="consultancy-budget">الميزانية المتوقعة</label>
+                                <select id="consultancy-budget" name="consultancy-budget" class="form-control">
+                                    <option value="">-- اختر الميزانية المتوقعة --</option>
+                                    <option value="less-than-500">أقل من 500 دولار</option>
+                                    <option value="500-1000">500 - 1000 دولار</option>
+                                    <option value="1000-3000">1000 - 3000 دولار</option>
+                                    <option value="3000-5000">3000 - 5000 دولار</option>
+                                    <option value="more-than-5000">أكثر من 5000 دولار</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="consultancy-timeline">الإطار الزمني المتوقع</label>
+                                <select id="consultancy-timeline" name="consultancy-timeline" class="form-control">
+                                    <option value="">-- اختر الإطار الزمني المتوقع --</option>
+                                    <option value="less-than-week">أقل من أسبوع</option>
+                                    <option value="1-2-weeks">1-2 أسابيع</option>
+                                    <option value="2-4-weeks">2-4 أسابيع</option>
+                                    <option value="1-3-months">1-3 أشهر</option>
+                                    <option value="more-than-3-months">أكثر من 3 أشهر</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>كيف سمعت عنا؟</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="consultancy-source[]" value="social-media">
+                                    وسائل التواصل الاجتماعي
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="consultancy-source[]" value="search-engine">
+                                    محركات البحث
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="consultancy-source[]" value="friend">
+                                    صديق/زميل
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="consultancy-source[]" value="advertisement">
+                                    إعلان
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="consultancy-source[]" value="other">
+                                    أخرى
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i>
+                                إرسال طلب الاستشارة
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // تحسين تجربة المستخدم
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثيرات التفاعل للنموذج
+            const form = document.querySelector('.service-form');
+            const inputs = form.querySelectorAll('.form-control');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+            
+            // معالجة إرسال النموذج
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // التحقق من صحة البيانات
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#e74c3c';
+                    } else {
+                        field.style.borderColor = '#e0e0e0';
+                    }
+                });
+                
+                if (isValid) {
+                    // إظهار رسالة نجاح
+                    alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+                    form.reset();
+                } else {
+                    alert('يرجى ملء جميع الحقول المطلوبة.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
