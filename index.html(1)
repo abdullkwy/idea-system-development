@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المهام - فريق آيديا</title>
+    <link rel="stylesheet" href="assets/css/team-login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="../website_project_v3/assets/images/logo.jpg" alt="آيديا" class="logo-img">
+                </div>
+                <h1>نظام إدارة المهام</h1>
+                <p>منصة تعاون فريق آيديا</p>
+            </div>
+            
+            <form id="teamLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="teamEmail">
+                        <i class="fas fa-envelope"></i>
+                        البريد الإلكتروني
+                    </label>
+                    <input type="email" id="teamEmail" name="teamEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teamPassword">
+                        <i class="fas fa-lock"></i>
+                        كلمة المرور
+                    </label>
+                    <input type="password" id="teamPassword" name="teamPassword" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberTeam">
+                        <span class="checkmark"></span>
+                        تذكرني
+                    </label>
+                    <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    دخول نظام المهام
+                </button>
+                
+                <div class="error-message" id="errorMessage" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="errorText"></span>
+                </div>
+            </form>
+            
+            <div class="team-roles">
+                <h4>أدوار الفريق</h4>
+                <div class="roles-grid">
+                    <div class="role-item">
+                        <i class="fas fa-crown"></i>
+                        <span>مدير المشروع</span>
+                    </div>
+                    <div class="role-item">
+                        <i class="fas fa-palette"></i>
+                        <span>مصمم</span>
+                    </div>
+                    <div class="role-item">
+                        <i class="fas fa-code"></i>
+                        <span>مطور</span>
+                    </div>
+                    <div class="role-item">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>مسوق</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-info">
+                <p>&copy; 2024 آيديا للاستشارات والحلول التسويقية</p>
+                <p>نظام إدارة المهام الداخلي</p>
+            </div>
+        </div>
+        
+        <div class="background-animation">
+            <div class="floating-shape shape1"></div>
+            <div class="floating-shape shape2"></div>
+            <div class="floating-shape shape3"></div>
+            <div class="floating-shape shape4"></div>
+            <div class="floating-shape shape5"></div>
+            <div class="floating-shape shape6"></div>
+        </div>
+    </div>
+    
+    <script src="assets/js/team-login.js"></script>
+</body>
+</html>
+
