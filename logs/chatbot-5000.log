@@ -1,0 +1,6 @@
+🤖 بدء تشغيل خدمة الشات بوت المتقدمة لآيديا...
+🌐 الخدمة متاحة على: http://localhost:5000
+ * Serving Flask app 'chatbot_service'
+ * Debug mode: on
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.

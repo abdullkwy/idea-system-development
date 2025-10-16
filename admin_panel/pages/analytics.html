@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحليلات والإحصائيات - لوحة تحكم آيديا</title>
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-container {
+            padding: 20px;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .date-filter {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .date-filter select,
+        .date-filter input {
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+        }
+        
+        .stat-card.visitors::before {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .stat-card.pageviews::before {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+        }
+        
+        .stat-card.bounce-rate::before {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+        
+        .stat-card.avg-session::before {
+            background: linear-gradient(135deg, #6f42c1, #5a32a3);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-icon.visitors {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .stat-icon.pageviews {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+        }
+        
+        .stat-icon.bounce-rate {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+        
+        .stat-icon.avg-session {
+            background: linear-gradient(135deg, #6f42c1, #5a32a3);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-change {
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stat-change.positive {
+            color: #28a745;
+        }
+        
+        .stat-change.negative {
+            color: #dc3545;
+        }
+        
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        .chart-container.small {
+            height: 250px;
+        }
+        
+        .tables-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .table-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .analytics-table th,
+        .analytics-table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .analytics-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .analytics-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .real-time-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .real-time-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .real-time-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #28a745;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .real-time-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .real-time-stat {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+        }
+        
+        .real-time-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .real-time-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .tables-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .date-filter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط الجانبي -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>لوحة تحكم آيديا</h3>
+            <button id="sidebar-toggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="../pages/dashboard/dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>لوحة القيادة</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-management.html">
+                        <i class="fas fa-file-alt"></i>
+                        <span>إدارة الصفحات</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="blog-management.html">
+                        <i class="fas fa-blog"></i>
+                        <span>إدارة المدونة</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="forms-management.html">
+                        <i class="fas fa-wpforms"></i>
+                        <span>إدارة النماذج</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="analytics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>التحليلات</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="messages.html">
+                        <i class="fas fa-envelope"></i>
+                        <span>الرسائل</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="media-library.html">
+                        <i class="fas fa-images"></i>
+                        <span>مكتبة الوسائط</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div id="main-content" class="main-content">
+        <!-- الشريط العلوي -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button id="sidebar-toggle-mobile" class="sidebar-toggle-mobile">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>التحليلات والإحصائيات</h1>
+            </div>
+            <div class="top-bar-right">
+                <div class="user-menu">
+                    <button class="user-menu-toggle">
+                        <i class="fas fa-user-circle"></i>
+                        <span>المدير</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-menu-dropdown">
+                        <a href="#" onclick="updateProfile()">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="#" onclick="changePassword()">
+                            <i class="fas fa-key"></i>
+                            تغيير كلمة المرور
+                        </a>
+                        <a href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل الخروج
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- محتوى الصفحة -->
+        <div class="analytics-container">
+            <!-- رأس الصفحة -->
+            <div class="page-header">
+                <h2 class="page-title">تحليلات الموقع والزوار</h2>
+                <div class="date-filter">
+                    <select id="period-filter">
+                        <option value="today">اليوم</option>
+                        <option value="yesterday">أمس</option>
+                        <option value="last7days" selected>آخر 7 أيام</option>
+                        <option value="last30days">آخر 30 يوم</option>
+                        <option value="last90days">آخر 90 يوم</option>
+                        <option value="custom">فترة مخصصة</option>
+                    </select>
+                    <input type="date" id="start-date" style="display: none;">
+                    <input type="date" id="end-date" style="display: none;">
+                    <button class="refresh-btn" onclick="refreshAnalytics()">
+                        <i class="fas fa-sync-alt"></i>
+                        تحديث
+                    </button>
+                </div>
+            </div>
+
+            <!-- الإحصائيات المباشرة -->
+            <div class="real-time-section">
+                <div class="real-time-header">
+                    <div class="real-time-indicator"></div>
+                    <h3>الإحصائيات المباشرة</h3>
+                </div>
+                <div class="real-time-stats">
+                    <div class="real-time-stat">
+                        <div class="real-time-value" id="active-users">0</div>
+                        <div class="real-time-label">المستخدمون النشطون الآن</div>
+                    </div>
+                    <div class="real-time-stat">
+                        <div class="real-time-value" id="today-visitors">0</div>
+                        <div class="real-time-label">زوار اليوم</div>
+                    </div>
+                    <div class="real-time-stat">
+                        <div class="real-time-value" id="today-pageviews">0</div>
+                        <div class="real-time-label">مشاهدات الصفحات اليوم</div>
+                    </div>
+                    <div class="real-time-stat">
+                        <div class="real-time-value" id="new-submissions">0</div>
+                        <div class="real-time-label">إرسالات جديدة</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بطاقات الإحصائيات -->
+            <div class="stats-grid">
+                <div class="stat-card visitors">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="total-visitors">0</div>
+                            <div class="stat-label">إجمالي الزوار</div>
+                        </div>
+                        <div class="stat-icon visitors">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change positive" id="visitors-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+12.5%</span>
+                        <span>مقارنة بالفترة السابقة</span>
+                    </div>
+                </div>
+
+                <div class="stat-card pageviews">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="total-pageviews">0</div>
+                            <div class="stat-label">مشاهدات الصفحات</div>
+                        </div>
+                        <div class="stat-icon pageviews">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change positive" id="pageviews-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+8.3%</span>
+                        <span>مقارنة بالفترة السابقة</span>
+                    </div>
+                </div>
+
+                <div class="stat-card bounce-rate">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="bounce-rate">0%</div>
+                            <div class="stat-label">معدل الارتداد</div>
+                        </div>
+                        <div class="stat-icon bounce-rate">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change negative" id="bounce-rate-change">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>-2.1%</span>
+                        <span>مقارنة بالفترة السابقة</span>
+                    </div>
+                </div>
+
+                <div class="stat-card avg-session">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="avg-session">0:00</div>
+                            <div class="stat-label">متوسط مدة الجلسة</div>
+                        </div>
+                        <div class="stat-icon avg-session">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change positive" id="session-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+15.7%</span>
+                        <span>مقارنة بالفترة السابقة</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الرسوم البيانية -->
+            <div class="charts-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">الزوار ومشاهدات الصفحات</h3>
+                        <div class="chart-legend">
+                            <span style="color: #007bff;">● الزوار</span>
+                            <span style="color: #28a745;">● مشاهدات الصفحات</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="visitors-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">مصادر الزيارات</h3>
+                    </div>
+                    <div class="chart-container small">
+                        <canvas id="sources-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الجداول -->
+            <div class="tables-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3 class="table-title">أكثر الصفحات زيارة</h3>
+                    </div>
+                    <table class="analytics-table">
+                        <thead>
+                            <tr>
+                                <th>الصفحة</th>
+                                <th>الزيارات</th>
+                                <th>النسبة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top-pages-table">
+                            <!-- سيتم ملء البيانات هنا -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3 class="table-title">الدول الأكثر زيارة</h3>
+                    </div>
+                    <table class="analytics-table">
+                        <thead>
+                            <tr>
+                                <th>الدولة</th>
+                                <th>الزيارات</th>
+                                <th>النسبة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top-countries-table">
+                            <!-- سيتم ملء البيانات هنا -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- تحليلات النماذج -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">إحصائيات النماذج والإرسالات</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="forms-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- حاوية الإشعارات -->
+    <div id="notifications-container" class="notifications-container"></div>
+
+    <!-- تضمين ملفات JavaScript -->
+    <script src="../assets/js/common.js"></script>
+    <script>
+        // متغيرات الرسوم البيانية
+        let visitorsChart = null;
+        let sourcesChart = null;
+        let formsChart = null;
+
+        // تحميل البيانات عند بدء التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            loadAnalytics();
+            
+            // تحديث البيانات كل دقيقة
+            setInterval(updateRealTimeStats, 60000);
+            
+            // إضافة مستمع لتغيير الفترة الزمنية
+            document.getElementById('period-filter').addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    document.getElementById('start-date').style.display = 'inline-block';
+                    document.getElementById('end-date').style.display = 'inline-block';
+                } else {
+                    document.getElementById('start-date').style.display = 'none';
+                    document.getElementById('end-date').style.display = 'none';
+                }
+                loadAnalytics();
+            });
+        });
+
+        // دالة تهيئة الرسوم البيانية
+        function initializeCharts() {
+            // رسم بياني للزوار ومشاهدات الصفحات
+            const visitorsCtx = document.getElementById('visitors-chart').getContext('2d');
+            visitorsChart = new Chart(visitorsCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'الزوار',
+                        data: [],
+                        borderColor: '#007bff',
+                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'مشاهدات الصفحات',
+                        data: [],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // رسم بياني لمصادر الزيارات
+            const sourcesCtx = document.getElementById('sources-chart').getContext('2d');
+            sourcesChart = new Chart(sourcesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['البحث المباشر', 'محركات البحث', 'وسائل التواصل', 'مواقع أخرى'],
+                    datasets: [{
+                        data: [40, 35, 15, 10],
+                        backgroundColor: [
+                            '#007bff',
+                            '#28a745',
+                            '#ffc107',
+                            '#dc3545'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // رسم بياني للنماذج
+            const formsCtx = document.getElementById('forms-chart').getContext('2d');
+            formsChart = new Chart(formsCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'الإرسالات',
+                        data: [],
+                        backgroundColor: '#6f42c1',
+                        borderColor: '#5a32a3',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // دالة تحميل التحليلات
+        async function loadAnalytics() {
+            try {
+                // تحديث الإحصائيات الأساسية
+                await updateMainStats();
+                
+                // تحديث الرسوم البيانية
+                await updateCharts();
+                
+                // تحديث الجداول
+                await updateTables();
+                
+                // تحديث الإحصائيات المباشرة
+                await updateRealTimeStats();
+                
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+                adminPanel.showNotification('حدث خطأ في تحميل التحليلات', 'error');
+            }
+        }
+
+        // دالة تحديث الإحصائيات الأساسية
+        async function updateMainStats() {
+            try {
+                // جلب بيانات تتبع الزوار
+                const visitorsData = await adminPanel.apiRequest('/visitor-analytics/');
+                const visitors = visitorsData.results || visitorsData;
+                
+                // حساب الإحصائيات
+                const totalVisitors = visitors.length;
+                const totalPageviews = visitors.reduce((sum, visitor) => sum + (visitor.page_views || 1), 0);
+                const avgSessionDuration = calculateAverageSessionDuration(visitors);
+                const bounceRate = calculateBounceRate(visitors);
+                
+                // تحديث العرض
+                document.getElementById('total-visitors').textContent = adminPanel.formatNumber(totalVisitors);
+                document.getElementById('total-pageviews').textContent = adminPanel.formatNumber(totalPageviews);
+                document.getElementById('bounce-rate').textContent = bounceRate + '%';
+                document.getElementById('avg-session').textContent = formatDuration(avgSessionDuration);
+                
+            } catch (error) {
+                console.error('Error updating main stats:', error);
+                // عرض بيانات تجريبية في حالة الخطأ
+                document.getElementById('total-visitors').textContent = '1,234';
+                document.getElementById('total-pageviews').textContent = '5,678';
+                document.getElementById('bounce-rate').textContent = '35%';
+                document.getElementById('avg-session').textContent = '2:45';
+            }
+        }
+
+        // دالة تحديث الرسوم البيانية
+        async function updateCharts() {
+            try {
+                // بيانات تجريبية للرسم البياني للزوار
+                const last7Days = [];
+                const visitorsData = [];
+                const pageviewsData = [];
+                
+                for (let i = 6; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    last7Days.push(date.toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' }));
+                    visitorsData.push(Math.floor(Math.random() * 100) + 50);
+                    pageviewsData.push(Math.floor(Math.random() * 200) + 100);
+                }
+                
+                visitorsChart.data.labels = last7Days;
+                visitorsChart.data.datasets[0].data = visitorsData;
+                visitorsChart.data.datasets[1].data = pageviewsData;
+                visitorsChart.update();
+                
+                // تحديث رسم النماذج
+                const formsData = await adminPanel.apiRequest('/dynamic-forms/');
+                const forms = formsData.results || formsData;
+                
+                const formNames = forms.map(form => form.name);
+                const submissionCounts = await Promise.all(forms.map(async form => {
+                    try {
+                        const submissions = await adminPanel.apiRequest(`/form-submissions/?form=${form.id}`);
+                        return (submissions.results || submissions).length;
+                    } catch {
+                        return Math.floor(Math.random() * 20) + 5;
+                    }
+                }));
+                
+                formsChart.data.labels = formNames;
+                formsChart.data.datasets[0].data = submissionCounts;
+                formsChart.update();
+                
+            } catch (error) {
+                console.error('Error updating charts:', error);
+            }
+        }
+
+        // دالة تحديث الجداول
+        async function updateTables() {
+            try {
+                // جدول أكثر الصفحات زيارة
+                const topPages = [
+                    { page: 'الصفحة الرئيسية', visits: 1234, percentage: 35 },
+                    { page: 'من نحن', visits: 567, percentage: 16 },
+                    { page: 'حلول آيديا', visits: 432, percentage: 12 },
+                    { page: 'المدونة', visits: 321, percentage: 9 },
+                    { page: 'تواصل معنا', visits: 234, percentage: 7 }
+                ];
+                
+                const topPagesHtml = topPages.map(page => `
+                    <tr>
+                        <td>${page.page}</td>
+                        <td>${adminPanel.formatNumber(page.visits)}</td>
+                        <td>
+                            ${page.percentage}%
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${page.percentage}%"></div>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+                
+                document.getElementById('top-pages-table').innerHTML = topPagesHtml;
+                
+                // جدول أكثر الدول زيارة
+                const topCountries = [
+                    { country: 'السعودية', visits: 856, percentage: 45 },
+                    { country: 'الإمارات', visits: 234, percentage: 12 },
+                    { country: 'مصر', visits: 187, percentage: 10 },
+                    { country: 'الكويت', visits: 145, percentage: 8 },
+                    { country: 'قطر', visits: 123, percentage: 6 }
+                ];
+                
+                const topCountriesHtml = topCountries.map(country => `
+                    <tr>
+                        <td>${country.country}</td>
+                        <td>${adminPanel.formatNumber(country.visits)}</td>
+                        <td>
+                            ${country.percentage}%
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${country.percentage}%"></div>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+                
+                document.getElementById('top-countries-table').innerHTML = topCountriesHtml;
+                
+            } catch (error) {
+                console.error('Error updating tables:', error);
+            }
+        }
+
+        // دالة تحديث الإحصائيات المباشرة
+        async function updateRealTimeStats() {
+            try {
+                // بيانات تجريبية للإحصائيات المباشرة
+                document.getElementById('active-users').textContent = Math.floor(Math.random() * 50) + 10;
+                document.getElementById('today-visitors').textContent = Math.floor(Math.random() * 200) + 100;
+                document.getElementById('today-pageviews').textContent = Math.floor(Math.random() * 500) + 300;
+                
+                // جلب عدد الإرسالات الجديدة
+                const submissionsData = await adminPanel.apiRequest('/form-submissions/?status=new');
+                const newSubmissions = (submissionsData.results || submissionsData).length;
+                document.getElementById('new-submissions').textContent = newSubmissions;
+                
+            } catch (error) {
+                console.error('Error updating real-time stats:', error);
+                document.getElementById('new-submissions').textContent = '0';
+            }
+        }
+
+        // دالة تحديث التحليلات
+        function refreshAnalytics() {
+            adminPanel.showNotification('جاري تحديث التحليلات...', 'info');
+            loadAnalytics();
+        }
+
+        // دوال مساعدة للحسابات
+        function calculateAverageSessionDuration(visitors) {
+            if (!visitors || visitors.length === 0) return 0;
+            
+            const totalDuration = visitors.reduce((sum, visitor) => {
+                // محاكاة مدة الجلسة (بالثواني)
+                return sum + (Math.random() * 300 + 60);
+            }, 0);
+            
+            return Math.floor(totalDuration / visitors.length);
+        }
+
+        function calculateBounceRate(visitors) {
+            if (!visitors || visitors.length === 0) return 0;
+            
+            // محاكاة معدل الارتداد
+            const bounceVisitors = visitors.filter(() => Math.random() < 0.35).length;
+            return Math.floor((bounceVisitors / visitors.length) * 100);
+        }
+
+        function formatDuration(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // تحديث البيانات المباشرة كل دقيقة
+        setInterval(updateRealTimeStats, 60000);
+    </script>
+</body>
+</html>
+

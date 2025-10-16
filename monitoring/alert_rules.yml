@@ -1,0 +1,188 @@
+groups:
+  - name: idea_system_alerts
+    rules:
+      # تنبيهات الخوادم
+      - alert: ServerDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "خادم {{ $labels.instance }} متوقف"
+          description: "الخادم {{ $labels.instance }} في المهمة {{ $labels.job }} متوقف لأكثر من دقيقة واحدة."
+
+      # تنبيهات استخدام المعالج
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "استخدام عالي للمعالج على {{ $labels.instance }}"
+          description: "استخدام المعالج على {{ $labels.instance }} أعلى من 80% لأكثر من 5 دقائق."
+
+      # تنبيهات استخدام الذاكرة
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "استخدام عالي للذاكرة على {{ $labels.instance }}"
+          description: "استخدام الذاكرة على {{ $labels.instance }} أعلى من 85% لأكثر من 5 دقائق."
+
+      # تنبيهات مساحة القرص
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "مساحة القرص منخفضة على {{ $labels.instance }}"
+          description: "مساحة القرص المتاحة على {{ $labels.instance }} أقل من 10%."
+
+      # تنبيهات Django
+      - alert: DjangoHighResponseTime
+        expr: django_http_requests_latency_seconds_by_view_method{quantile="0.95"} > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "زمن استجابة عالي في Django"
+          description: "زمن الاستجابة في Django أعلى من 2 ثانية للـ 95th percentile."
+
+      - alert: DjangoHighErrorRate
+        expr: rate(django_http_responses_total_by_status{status=~"5.."}[5m]) / rate(django_http_responses_total_by_status[5m]) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "معدل أخطاء عالي في Django"
+          description: "معدل أخطاء الخادم (5xx) في Django أعلى من 5%."
+
+      # تنبيهات قاعدة البيانات
+      - alert: PostgreSQLDown
+        expr: pg_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "قاعدة البيانات PostgreSQL متوقفة"
+          description: "قاعدة البيانات PostgreSQL على {{ $labels.instance }} متوقفة."
+
+      - alert: PostgreSQLTooManyConnections
+        expr: sum by (instance) (pg_stat_activity_count) > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "عدد كبير من الاتصالات في PostgreSQL"
+          description: "عدد الاتصالات في PostgreSQL على {{ $labels.instance }} أعلى من 80."
+
+      # تنبيهات Redis
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis متوقف"
+          description: "خادم Redis على {{ $labels.instance }} متوقف."
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "استخدام عالي للذاكرة في Redis"
+          description: "استخدام الذاكرة في Redis على {{ $labels.instance }} أعلى من 90%."
+
+      # تنبيهات WebSocket
+      - alert: WebSocketConnectionsHigh
+        expr: websocket_active_connections > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "عدد كبير من اتصالات WebSocket"
+          description: "عدد اتصالات WebSocket النشطة على {{ $labels.instance }} أعلى من 1000."
+
+      # تنبيهات Chatbot
+      - alert: ChatbotHighResponseTime
+        expr: chatbot_response_time_seconds{quantile="0.95"} > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "زمن استجابة عالي في Chatbot"
+          description: "زمن الاستجابة في Chatbot على {{ $labels.instance }} أعلى من 10 ثواني."
+
+      # تنبيهات Nginx
+      - alert: NginxHighRequestRate
+        expr: rate(nginx_http_requests_total[5m]) > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "معدل طلبات عالي في Nginx"
+          description: "معدل الطلبات في Nginx أعلى من 1000 طلب/ثانية."
+
+      # تنبيهات Elasticsearch
+      - alert: ElasticsearchClusterRed
+        expr: elasticsearch_cluster_health_status{color="red"} == 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "حالة Elasticsearch حرجة"
+          description: "حالة مجموعة Elasticsearch حمراء (حرجة)."
+
+      # تنبيهات Celery
+      - alert: CeleryQueueLength
+        expr: celery_queue_length > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "طابور Celery طويل"
+          description: "طول طابور Celery أعلى من 100 مهمة."
+
+      - alert: CeleryWorkerDown
+        expr: celery_workers_active == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "لا توجد عمال Celery نشطة"
+          description: "جميع عمال Celery متوقفة."
+
+  - name: business_metrics_alerts
+    rules:
+      # تنبيهات الأعمال
+      - alert: LowUserActivity
+        expr: rate(django_http_requests_total[1h]) < 10
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "نشاط منخفض للمستخدمين"
+          description: "معدل الطلبات أقل من 10 طلب/ساعة لأكثر من 30 دقيقة."
+
+      - alert: HighBounceRate
+        expr: (sum(rate(visitor_bounce_total[1h])) / sum(rate(visitor_total[1h]))) * 100 > 70
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "معدل ارتداد عالي"
+          description: "معدل الارتداد أعلى من 70% لأكثر من 15 دقيقة."
+
+      - alert: ChatbotUsageSpike
+        expr: rate(chatbot_requests_total[5m]) > 50
+        for: 2m
+        labels:
+          severity: info
+        annotations:
+          summary: "زيادة في استخدام Chatbot"
+          description: "معدل طلبات Chatbot أعلى من 50 طلب/دقيقة."

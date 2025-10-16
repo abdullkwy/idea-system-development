@@ -1,0 +1,81 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "alert_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # مراقبة Prometheus نفسه
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # مراقبة النظام باستخدام Node Exporter
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # مراقبة خوادم Django
+  - job_name: 'django-apps'
+    static_configs:
+      - targets: 
+        - 'django-app-1:8000'
+        - 'django-app-2:8000'
+        - 'django-app-3:8000'
+    metrics_path: '/metrics/'
+    scrape_interval: 30s
+
+  # مراقبة خوادم WebSocket
+  - job_name: 'websocket-servers'
+    static_configs:
+      - targets:
+        - 'websocket-1:3001'
+        - 'websocket-2:3002'
+    metrics_path: '/api/metrics'
+    scrape_interval: 30s
+
+  # مراقبة خوادم Chatbot
+  - job_name: 'chatbot-servers'
+    static_configs:
+      - targets:
+        - 'chatbot-1:5000'
+        - 'chatbot-2:5001'
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # مراقبة Nginx
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:9113']
+    scrape_interval: 30s
+
+  # مراقبة PostgreSQL
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    scrape_interval: 30s
+
+  # مراقبة Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    scrape_interval: 30s
+
+  # مراقبة Elasticsearch
+  - job_name: 'elasticsearch'
+    static_configs:
+      - targets: ['elasticsearch-exporter:9114']
+    scrape_interval: 30s
+
+  # مراقبة Celery
+  - job_name: 'celery'
+    static_configs:
+      - targets: ['celery-exporter:9540']
+    scrape_interval: 30s

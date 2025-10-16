@@ -1,0 +1,419 @@
+version: '3.8'
+
+services:
+  # قاعدة البيانات الرئيسية
+  postgres-primary:
+    image: postgres:15
+    container_name: idea_postgres_primary
+    environment:
+      POSTGRES_DB: idea_cms_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password_123}
+      POSTGRES_REPLICATION_USER: replicator
+      POSTGRES_REPLICATION_PASSWORD: ${REPLICATION_PASSWORD:-replication_pass_123}
+    volumes:
+      - postgres_primary_data:/var/lib/postgresql/data
+      - ./postgresql/primary.conf:/etc/postgresql/postgresql.conf
+      - ./postgresql/pg_hba.conf:/etc/postgresql/pg_hba.conf
+    ports:
+      - "5432:5432"
+    networks:
+      - idea_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # قاعدة البيانات الثانوية (للقراءة)
+  postgres-replica:
+    image: postgres:15
+    container_name: idea_postgres_replica
+    environment:
+      POSTGRES_DB: idea_cms_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password_123}
+      PGUSER: postgres
+    volumes:
+      - postgres_replica_data:/var/lib/postgresql/data
+      - ./postgresql/replica.conf:/etc/postgresql/postgresql.conf
+    ports:
+      - "5433:5432"
+    networks:
+      - idea_network
+    restart: unless-stopped
+    depends_on:
+      - postgres-primary
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis للتخزين المؤقت والجلسات
+  redis:
+    image: redis:7-alpine
+    container_name: idea_redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_pass_123}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - idea_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # خوادم Django المتعددة
+  django-app-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idea_django_1
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-secure_password_123}@postgres-primary:5432/idea_cms_db
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/0
+      - DJANGO_SETTINGS_MODULE=idea_cms.settings.production
+      - SERVER_NAME=django-app-1
+    volumes:
+      - static_files:/app/staticfiles
+      - media_files:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "8000:8000"
+    networks:
+      - idea_network
+    depends_on:
+      - postgres-primary
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  django-app-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idea_django_2
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-secure_password_123}@postgres-primary:5432/idea_cms_db
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/0
+      - DJANGO_SETTINGS_MODULE=idea_cms.settings.production
+      - SERVER_NAME=django-app-2
+    volumes:
+      - static_files:/app/staticfiles
+      - media_files:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "8001:8000"
+    networks:
+      - idea_network
+    depends_on:
+      - postgres-primary
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  django-app-3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idea_django_3
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-secure_password_123}@postgres-primary:5432/idea_cms_db
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/0
+      - DJANGO_SETTINGS_MODULE=idea_cms.settings.production
+      - SERVER_NAME=django-app-3
+    volumes:
+      - static_files:/app/staticfiles
+      - media_files:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "8002:8000"
+    networks:
+      - idea_network
+    depends_on:
+      - postgres-primary
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # خوادم WebSocket
+  websocket-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.websocket
+    container_name: idea_websocket_1
+    environment:
+      - PORT=3001
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/1
+      - SERVER_NAME=websocket-1
+    ports:
+      - "3001:3001"
+    networks:
+      - idea_network
+    depends_on:
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  websocket-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.websocket
+    container_name: idea_websocket_2
+    environment:
+      - PORT=3002
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/1
+      - SERVER_NAME=websocket-2
+    ports:
+      - "3002:3002"
+    networks:
+      - idea_network
+    depends_on:
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # خوادم Chatbot
+  chatbot-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.chatbot
+    container_name: idea_chatbot_1
+    environment:
+      - PORT=5000
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/2
+      - SERVER_NAME=chatbot-1
+    ports:
+      - "5000:5000"
+    networks:
+      - idea_network
+    depends_on:
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  chatbot-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.chatbot
+    container_name: idea_chatbot_2
+    environment:
+      - PORT=5001
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/2
+      - SERVER_NAME=chatbot-2
+    ports:
+      - "5001:5001"
+    networks:
+      - idea_network
+    depends_on:
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: idea_nginx
+    volumes:
+      - ./nginx_load_balancer.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_files:/var/www/idea/staticfiles:ro
+      - media_files:/var/www/idea/media:ro
+      - ./ssl:/etc/ssl:ro
+      - ./logs/nginx:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - idea_network
+    depends_on:
+      - django-app-1
+      - django-app-2
+      - django-app-3
+      - websocket-1
+      - websocket-2
+      - chatbot-1
+      - chatbot-2
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Prometheus للمراقبة
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: idea_prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - idea_network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  # Grafana للتصور
+  grafana:
+    image: grafana/grafana:latest
+    container_name: idea_grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "3000:3000"
+    networks:
+      - idea_network
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  # Node Exporter لمراقبة النظام
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: idea_node_exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - "9100:9100"
+    networks:
+      - idea_network
+    restart: unless-stopped
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+
+  # Elasticsearch للبحث المتقدم
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: idea_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - idea_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Celery Worker للمهام الخلفية
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idea_celery_worker
+    command: celery -A idea_cms worker --loglevel=info --concurrency=4
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-secure_password_123}@postgres-primary:5432/idea_cms_db
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/3
+      - DJANGO_SETTINGS_MODULE=idea_cms.settings.production
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - idea_network
+    depends_on:
+      - postgres-primary
+      - redis
+    restart: unless-stopped
+
+  # Celery Beat للمهام المجدولة
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idea_celery_beat
+    command: celery -A idea_cms beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-secure_password_123}@postgres-primary:5432/idea_cms_db
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_pass_123}@redis:6379/3
+      - DJANGO_SETTINGS_MODULE=idea_cms.settings.production
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - idea_network
+    depends_on:
+      - postgres-primary
+      - redis
+    restart: unless-stopped
+
+volumes:
+  postgres_primary_data:
+  postgres_replica_data:
+  redis_data:
+  static_files:
+  media_files:
+  prometheus_data:
+  grafana_data:
+  elasticsearch_data:
+
+networks:
+  idea_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

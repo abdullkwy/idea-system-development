@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الصفحات - لوحة تحكم آيديا</title>
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .pages-container {
+            padding: 20px;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .add-page-btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-page-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+        
+        .search-filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .search-filter-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .pages-table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .pages-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .pages-table th {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 15px;
+            text-align: right;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .pages-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+        
+        .pages-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .page-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .status-published {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-draft {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .btn-edit {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-view {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .btn-view:hover {
+            background-color: #138496;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            background: white;
+            color: #007bff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط الجانبي -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>لوحة تحكم آيديا</h3>
+            <button id="sidebar-toggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="../pages/dashboard/dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>لوحة القيادة</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="pages-management.html">
+                        <i class="fas fa-file-alt"></i>
+                        <span>إدارة الصفحات</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="blog-management.html">
+                        <i class="fas fa-blog"></i>
+                        <span>إدارة المدونة</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="forms-management.html">
+                        <i class="fas fa-wpforms"></i>
+                        <span>إدارة النماذج</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="analytics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>التحليلات</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="messages.html">
+                        <i class="fas fa-envelope"></i>
+                        <span>الرسائل</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="media-library.html">
+                        <i class="fas fa-images"></i>
+                        <span>مكتبة الوسائط</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div id="main-content" class="main-content">
+        <!-- الشريط العلوي -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button id="sidebar-toggle-mobile" class="sidebar-toggle-mobile">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>إدارة الصفحات</h1>
+            </div>
+            <div class="top-bar-right">
+                <div class="user-menu">
+                    <button class="user-menu-toggle">
+                        <i class="fas fa-user-circle"></i>
+                        <span>المدير</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-menu-dropdown">
+                        <a href="#" onclick="updateProfile()">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="#" onclick="changePassword()">
+                            <i class="fas fa-key"></i>
+                            تغيير كلمة المرور
+                        </a>
+                        <a href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل الخروج
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- محتوى الصفحة -->
+        <div class="pages-container">
+            <!-- رأس الصفحة -->
+            <div class="page-header">
+                <h2 class="page-title">إدارة صفحات الموقع</h2>
+                <button class="add-page-btn" onclick="showAddPageModal()">
+                    <i class="fas fa-plus"></i>
+                    إضافة صفحة جديدة
+                </button>
+            </div>
+
+            <!-- قسم البحث والتصفية -->
+            <div class="search-filter-section">
+                <div class="search-filter-row">
+                    <input type="text" id="search-input" class="search-input" placeholder="البحث في الصفحات...">
+                    <select id="status-filter" class="filter-select">
+                        <option value="">جميع الحالات</option>
+                        <option value="published">منشور</option>
+                        <option value="draft">مسودة</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="searchPages()">
+                        <i class="fas fa-search"></i>
+                        بحث
+                    </button>
+                </div>
+            </div>
+
+            <!-- جدول الصفحات -->
+            <div class="pages-table-container">
+                <div id="loading" class="loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    جاري التحميل...
+                </div>
+                
+                <table class="pages-table" id="pages-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>العنوان</th>
+                            <th>الرابط</th>
+                            <th>الحالة</th>
+                            <th>تاريخ الإنشاء</th>
+                            <th>آخر تحديث</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pages-tbody">
+                        <!-- سيتم ملء البيانات هنا بواسطة JavaScript -->
+                    </tbody>
+                </table>
+                
+                <div id="no-data" class="no-data" style="display: none;">
+                    <i class="fas fa-file-alt"></i>
+                    <p>لا توجد صفحات متاحة</p>
+                </div>
+                
+                <!-- التصفح -->
+                <div class="pagination" id="pagination" style="display: none;">
+                    <!-- سيتم إنشاء أزرار التصفح هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة/تعديل صفحة -->
+    <div id="page-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">إضافة صفحة جديدة</h3>
+                <button class="modal-close" onclick="closePageModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="page-form">
+                    <input type="hidden" id="page-id" name="id">
+                    
+                    <div class="form-group">
+                        <label for="page-title">عنوان الصفحة *</label>
+                        <input type="text" id="page-title" name="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-slug">الرابط (Slug)</label>
+                        <input type="text" id="page-slug" name="slug">
+                        <small>سيتم إنشاؤه تلقائياً من العنوان إذا تُرك فارغاً</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-content">محتوى الصفحة *</label>
+                        <textarea id="page-content" name="content" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-meta-description">وصف الصفحة (Meta Description)</label>
+                        <textarea id="page-meta-description" name="meta_description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-status">حالة الصفحة</label>
+                        <select id="page-status" name="status">
+                            <option value="draft">مسودة</option>
+                            <option value="published">منشور</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closePageModal()">إلغاء</button>
+                <button type="button" class="btn btn-primary" onclick="savePage()">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- حاوية الإشعارات -->
+    <div id="notifications-container" class="notifications-container"></div>
+
+    <!-- تضمين ملفات JavaScript -->
+    <script src="../assets/js/common.js"></script>
+    <script>
+        // متغيرات عامة
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentEditingId = null;
+
+        // تحميل الصفحات عند بدء التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPages();
+            
+            // إضافة مستمع للبحث
+            document.getElementById('search-input').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    searchPages();
+                }
+            });
+            
+            // إضافة مستمع لتغيير الحالة
+            document.getElementById('status-filter').addEventListener('change', searchPages);
+            
+            // إضافة مستمع لتحديث الـ slug تلقائياً
+            document.getElementById('page-title').addEventListener('input', function() {
+                const slug = adminPanel.slugify(this.value);
+                document.getElementById('page-slug').value = slug;
+            });
+        });
+
+        // دالة تحميل الصفحات
+        async function loadPages(page = 1) {
+            showLoading();
+            
+            try {
+                const searchTerm = document.getElementById('search-input').value;
+                const statusFilter = document.getElementById('status-filter').value;
+                
+                let url = `/pages/?page=${page}`;
+                if (searchTerm) url += `&search=${encodeURIComponent(searchTerm)}`;
+                if (statusFilter) url += `&status=${statusFilter}`;
+                
+                const data = await adminPanel.apiRequest(url);
+                displayPages(data);
+                updatePagination(data);
+                
+            } catch (error) {
+                console.error('Error loading pages:', error);
+                showNoData();
+            }
+        }
+
+        // دالة عرض الصفحات
+        function displayPages(data) {
+            const tbody = document.getElementById('pages-tbody');
+            const pages = data.results || data;
+            
+            if (!pages || pages.length === 0) {
+                showNoData();
+                return;
+            }
+            
+            tbody.innerHTML = pages.map(page => `
+                <tr>
+                    <td>
+                        <strong>${page.title}</strong>
+                        ${page.meta_description ? `<br><small class="text-muted">${page.meta_description.substring(0, 100)}...</small>` : ''}
+                    </td>
+                    <td>
+                        <code>/${page.slug}/</code>
+                    </td>
+                    <td>
+                        <span class="page-status status-${page.status}">
+                            ${page.status === 'published' ? 'منشور' : 'مسودة'}
+                        </span>
+                    </td>
+                    <td>${formatDate(page.created_at)}</td>
+                    <td>${formatDate(page.updated_at)}</td>
+                    <td>
+                        <div class="page-actions">
+                            <button class="action-btn btn-view" onclick="viewPage('${page.slug}')" title="عرض">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn btn-edit" onclick="editPage(${page.id})" title="تعديل">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn btn-delete" onclick="deletePage(${page.id}, '${page.title}')" title="حذف">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            
+            showTable();
+        }
+
+        // دالة تحديث التصفح
+        function updatePagination(data) {
+            const pagination = document.getElementById('pagination');
+            
+            if (data.count && data.count > 10) {
+                totalPages = Math.ceil(data.count / 10);
+                currentPage = data.current_page || 1;
+                
+                let paginationHTML = '';
+                
+                // زر السابق
+                paginationHTML += `
+                    <button class="pagination-btn" onclick="loadPages(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                        <i class="fas fa-chevron-right"></i>
+                        السابق
+                    </button>
+                `;
+                
+                // أرقام الصفحات
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === currentPage || i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                        paginationHTML += `
+                            <button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="loadPages(${i})">
+                                ${i}
+                            </button>
+                        `;
+                    } else if (i === currentPage - 2 || i === currentPage + 2) {
+                        paginationHTML += '<span>...</span>';
+                    }
+                }
+                
+                // زر التالي
+                paginationHTML += `
+                    <button class="pagination-btn" onclick="loadPages(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                        التالي
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                `;
+                
+                pagination.innerHTML = paginationHTML;
+                pagination.style.display = 'flex';
+            } else {
+                pagination.style.display = 'none';
+            }
+        }
+
+        // دالة البحث
+        function searchPages() {
+            currentPage = 1;
+            loadPages();
+        }
+
+        // دالة عرض نموذج إضافة صفحة
+        function showAddPageModal() {
+            document.getElementById('modal-title').textContent = 'إضافة صفحة جديدة';
+            document.getElementById('page-form').reset();
+            document.getElementById('page-id').value = '';
+            currentEditingId = null;
+            document.getElementById('page-modal').style.display = 'block';
+        }
+
+        // دالة تعديل صفحة
+        async function editPage(id) {
+            try {
+                const page = await adminPanel.apiRequest(`/pages/${id}/`);
+                
+                document.getElementById('modal-title').textContent = 'تعديل الصفحة';
+                document.getElementById('page-id').value = page.id;
+                document.getElementById('page-title').value = page.title;
+                document.getElementById('page-slug').value = page.slug;
+                document.getElementById('page-content').value = page.content;
+                document.getElementById('page-meta-description').value = page.meta_description || '';
+                document.getElementById('page-status').value = page.status;
+                
+                currentEditingId = id;
+                document.getElementById('page-modal').style.display = 'block';
+                
+            } catch (error) {
+                adminPanel.showNotification('حدث خطأ في تحميل بيانات الصفحة', 'error');
+            }
+        }
+
+        // دالة حفظ الصفحة
+        async function savePage() {
+            const form = document.getElementById('page-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // التحقق من صحة البيانات
+            if (!adminPanel.validateRequired(data.title)) {
+                adminPanel.showNotification('عنوان الصفحة مطلوب', 'error');
+                return;
+            }
+            
+            if (!adminPanel.validateRequired(data.content)) {
+                adminPanel.showNotification('محتوى الصفحة مطلوب', 'error');
+                return;
+            }
+            
+            // إنشاء slug تلقائياً إذا لم يتم تحديده
+            if (!data.slug) {
+                data.slug = adminPanel.slugify(data.title);
+            }
+            
+            try {
+                if (currentEditingId) {
+                    // تحديث صفحة موجودة
+                    await adminPanel.apiRequest(`/pages/${currentEditingId}/`, {
+                        method: 'PUT',
+                        body: JSON.stringify(data),
+                    });
+                    adminPanel.showNotification('تم تحديث الصفحة بنجاح', 'success');
+                } else {
+                    // إضافة صفحة جديدة
+                    await adminPanel.apiRequest('/pages/', {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                    });
+                    adminPanel.showNotification('تم إضافة الصفحة بنجاح', 'success');
+                }
+                
+                closePageModal();
+                loadPages(currentPage);
+                
+            } catch (error) {
+                adminPanel.showNotification('حدث خطأ في حفظ الصفحة', 'error');
+            }
+        }
+
+        // دالة حذف صفحة
+        async function deletePage(id, title) {
+            if (confirm(`هل أنت متأكد من حذف الصفحة "${title}"؟`)) {
+                try {
+                    await adminPanel.apiRequest(`/pages/${id}/`, {
+                        method: 'DELETE',
+                    });
+                    
+                    adminPanel.showNotification('تم حذف الصفحة بنجاح', 'success');
+                    loadPages(currentPage);
+                    
+                } catch (error) {
+                    adminPanel.showNotification('حدث خطأ في حذف الصفحة', 'error');
+                }
+            }
+        }
+
+        // دالة عرض الصفحة
+        function viewPage(slug) {
+            window.open(`/website_project_v3/${slug}.html`, '_blank');
+        }
+
+        // دالة إغلاق النموذج
+        function closePageModal() {
+            document.getElementById('page-modal').style.display = 'none';
+            currentEditingId = null;
+        }
+
+        // دوال مساعدة للعرض
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('pages-table').style.display = 'none';
+            document.getElementById('no-data').style.display = 'none';
+            document.getElementById('pagination').style.display = 'none';
+        }
+
+        function showTable() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('pages-table').style.display = 'table';
+            document.getElementById('no-data').style.display = 'none';
+        }
+
+        function showNoData() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('pages-table').style.display = 'none';
+            document.getElementById('no-data').style.display = 'block';
+            document.getElementById('pagination').style.display = 'none';
+        }
+
+        // دالة تنسيق التاريخ
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // إغلاق النموذج عند النقر خارجه
+        window.onclick = function(event) {
+            const modal = document.getElementById('page-modal');
+            if (event.target === modal) {
+                closePageModal();
+            }
+        }
+    </script>
+</body>
+</html>
+
