@@ -1,14 +1,14 @@
 Method,Name,Error,Occurrences
-POST,/chatbot/chat,"ConnectionRefusedError(111, 'Connection refused')",151
-POST,/ws/send_message,"ConnectionRefusedError(111, 'Connection refused')",36
-GET,/team_management/dashboard.html,"ConnectionRefusedError(111, 'Connection refused')",327
-GET,/,"ConnectionRefusedError(111, 'Connection refused')",110
-GET,/client_portal/,"ConnectionRefusedError(111, 'Connection refused')",39
-GET,/admin/,"ConnectionRefusedError(111, 'Connection refused')",236
-POST,/team_management/update_task,"ConnectionRefusedError(111, 'Connection refused')",139
-GET,/client_portal/project_progress,"ConnectionRefusedError(111, 'Connection refused')",148
-GET,/about.html,"ConnectionRefusedError(111, 'Connection refused')",72
-GET,/team_management/,"ConnectionRefusedError(111, 'Connection refused')",37
-GET,/client_portal/dashboard.html,"ConnectionRefusedError(111, 'Connection refused')",306
-POST,/admin/cms/post/add/,"ConnectionRefusedError(111, 'Connection refused')",76
-GET,/blog.html,"ConnectionRefusedError(111, 'Connection refused')",30
+POST,/chatbot/chat,"ConnectionRefusedError(111, 'Connection refused')",247
+POST,/ws/send_message,"ConnectionRefusedError(111, 'Connection refused')",54
+GET,/team_management/dashboard.html,"ConnectionRefusedError(111, 'Connection refused')",496
+GET,/,"ConnectionRefusedError(111, 'Connection refused')",145
+GET,/client_portal/,"ConnectionRefusedError(111, 'Connection refused')",60
+GET,/admin/,"ConnectionRefusedError(111, 'Connection refused')",328
+POST,/team_management/update_task,"ConnectionRefusedError(111, 'Connection refused')",187
+GET,/client_portal/project_progress,"ConnectionRefusedError(111, 'Connection refused')",179
+GET,/about.html,"ConnectionRefusedError(111, 'Connection refused')",111
+GET,/team_management/,"ConnectionRefusedError(111, 'Connection refused')",58
+GET,/client_portal/dashboard.html,"ConnectionRefusedError(111, 'Connection refused')",503
+POST,/admin/cms/post/add/,"ConnectionRefusedError(111, 'Connection refused')",123
+GET,/blog.html,"ConnectionRefusedError(111, 'Connection refused')",55
