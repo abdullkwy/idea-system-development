@@ -1,0 +1,535 @@
+/**
+ * IDEA System - Unified Design System
+ * ====================================
+ * 
+ * This CSS file defines the unified design system for all components
+ * across the IDEA system. It ensures visual consistency and professional
+ * appearance across all user interfaces.
+ * 
+ * Author: Manus AI
+ * Date: 2025-10-20
+ */
+
+/* ============================================
+   1. COLOR PALETTE
+   ============================================ */
+
+:root {
+    /* Primary Colors */
+    --color-primary-olive: #6B8E23;      /* Olive green */
+    --color-primary-beige: #D4C5B9;      /* Beige */
+    --color-primary-dark: #4A5C1A;       /* Dark olive */
+    --color-primary-light: #A4B494;      /* Light olive */
+
+    /* Secondary Colors */
+    --color-secondary-gray: #F5F5F5;     /* Light gray */
+    --color-secondary-dark-gray: #333333; /* Dark gray */
+    --color-secondary-white: #FFFFFF;    /* White */
+
+    /* Status Colors */
+    --color-success: #27AE60;            /* Green */
+    --color-warning: #F39C12;            /* Orange */
+    --color-error: #E74C3C;              /* Red */
+    --color-info: #3498DB;               /* Blue */
+
+    /* Text Colors */
+    --color-text-primary: #333333;       /* Primary text */
+    --color-text-secondary: #666666;     /* Secondary text */
+    --color-text-light: #999999;         /* Light text */
+    --color-text-inverse: #FFFFFF;       /* Inverse text */
+
+    /* Border Colors */
+    --color-border: #E0E0E0;             /* Border color */
+    --color-border-light: #F0F0F0;       /* Light border */
+
+    /* Background Colors */
+    --color-bg-primary: #FFFFFF;         /* Primary background */
+    --color-bg-secondary: #F9F9F9;       /* Secondary background */
+    --color-bg-tertiary: #F0F0F0;        /* Tertiary background */
+}
+
+/* ============================================
+   2. TYPOGRAPHY
+   ============================================ */
+
+:root {
+    /* Font Families */
+    --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family-secondary: 'Arial', sans-serif;
+    --font-family-mono: 'Courier New', monospace;
+
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;             /* 12px */
+    --font-size-sm: 0.875rem;            /* 14px */
+    --font-size-base: 1rem;              /* 16px */
+    --font-size-lg: 1.125rem;            /* 18px */
+    --font-size-xl: 1.25rem;             /* 20px */
+    --font-size-2xl: 1.5rem;             /* 24px */
+    --font-size-3xl: 1.875rem;           /* 30px */
+    --font-size-4xl: 2.25rem;            /* 36px */
+
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+}
+
+/* ============================================
+   3. SPACING
+   ============================================ */
+
+:root {
+    --spacing-xs: 0.25rem;               /* 4px */
+    --spacing-sm: 0.5rem;                /* 8px */
+    --spacing-md: 1rem;                  /* 16px */
+    --spacing-lg: 1.5rem;                /* 24px */
+    --spacing-xl: 2rem;                  /* 32px */
+    --spacing-2xl: 3rem;                 /* 48px */
+    --spacing-3xl: 4rem;                 /* 64px */
+}
+
+/* ============================================
+   4. BORDER RADIUS
+   ============================================ */
+
+:root {
+    --border-radius-sm: 0.25rem;         /* 4px */
+    --border-radius-md: 0.5rem;          /* 8px */
+    --border-radius-lg: 1rem;            /* 16px */
+    --border-radius-xl: 1.5rem;          /* 24px */
+    --border-radius-full: 9999px;        /* Full circle */
+}
+
+/* ============================================
+   5. SHADOWS
+   ============================================ */
+
+:root {
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================================
+   6. TRANSITIONS & ANIMATIONS
+   ============================================ */
+
+:root {
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+}
+
+/* ============================================
+   7. BASE STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   8. TYPOGRAPHY STYLES
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--spacing-md);
+}
+
+h1 {
+    font-size: var(--font-size-4xl);
+}
+
+h2 {
+    font-size: var(--font-size-3xl);
+}
+
+h3 {
+    font-size: var(--font-size-2xl);
+}
+
+h4 {
+    font-size: var(--font-size-xl);
+}
+
+h5 {
+    font-size: var(--font-size-lg);
+}
+
+h6 {
+    font-size: var(--font-size-base);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--color-primary-olive);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+/* ============================================
+   9. BUTTON STYLES
+   ============================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    user-select: none;
+}
+
+.btn:focus {
+    outline: 2px solid var(--color-primary-olive);
+    outline-offset: 2px;
+}
+
+.btn-primary {
+    background-color: var(--color-primary-olive);
+    color: var(--color-text-inverse);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-bg-tertiary);
+    border-color: var(--color-primary-olive);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--color-primary-olive);
+    border: 2px solid var(--color-primary-olive);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-primary-olive);
+    color: var(--color-text-inverse);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+    color: var(--color-text-inverse);
+}
+
+.btn-success:hover {
+    opacity: 0.9;
+}
+
+.btn-error {
+    background-color: var(--color-error);
+    color: var(--color-text-inverse);
+}
+
+.btn-error:hover {
+    opacity: 0.9;
+}
+
+.btn-sm {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   10. FORM STYLES
+   ============================================ */
+
+input, textarea, select {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    transition: border-color var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary-olive);
+    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ============================================
+   11. CARD STYLES
+   ============================================ */
+
+.card {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.card-body {
+    margin-bottom: var(--spacing-md);
+}
+
+.card-footer {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+}
+
+/* ============================================
+   12. NAVIGATION STYLES
+   ============================================ */
+
+nav {
+    background-color: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--spacing-md) 0;
+}
+
+nav a {
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-text-primary);
+    transition: color var(--transition-fast);
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--color-primary-olive);
+    border-bottom: 2px solid var(--color-primary-olive);
+}
+
+/* ============================================
+   13. UTILITY CLASSES
+   ============================================ */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-muted {
+    color: var(--color-text-light);
+}
+
+.text-success {
+    color: var(--color-success);
+}
+
+.text-error {
+    color: var(--color-error);
+}
+
+.text-warning {
+    color: var(--color-warning);
+}
+
+.text-info {
+    color: var(--color-info);
+}
+
+.mt-xs { margin-top: var(--spacing-xs); }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+.mb-xs { margin-bottom: var(--spacing-xs); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+.p-xs { padding: var(--spacing-xs); }
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gap-xs { gap: var(--spacing-xs); }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+/* ============================================
+   14. RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    :root {
+        --font-size-4xl: 1.875rem;
+        --font-size-3xl: 1.5rem;
+        --font-size-2xl: 1.25rem;
+    }
+
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-4xl: 1.5rem;
+        --font-size-3xl: 1.25rem;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+/* ============================================
+   15. ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text-primary: #E0E0E0;
+        --color-text-secondary: #B0B0B0;
+        --color-bg-primary: #1A1A1A;
+        --color-bg-secondary: #2A2A2A;
+        --color-bg-tertiary: #3A3A3A;
+        --color-border: #404040;
+    }
+}
+
